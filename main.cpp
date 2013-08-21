@@ -3,6 +3,7 @@
 
 
 void remove_duplicates(list **myobj);
+void write_output(list **l, char *filename);
 int main(int argc,char *argv[])
 {
 	FILE *fp=NULL;
@@ -56,6 +57,9 @@ int main(int argc,char *argv[])
 //printf("\n\n\n printed firsttime\n");
 	remove_duplicates(&myobj);
 	myobj->display_elements();
+	
+	write_output(&myobj, argv[2]);
+	
 //	myobj->write_output(argv[2]);
 }
 
@@ -89,6 +93,31 @@ void remove_duplicates(list **pres)
 	}
 	if((ref_pos == 1)&& (scan_pos == 0))
 		printf("Sorry there are no elements\n");
+}
+
+void write_output(list **l, char *filename)
+{
+	FILE *fp;
+	if((fp= fopen(filename,"w"))==NULL)
+	{
+		printf("Cannot create output file %s\n Exiting....\n",filename);
+		exit(0);
+	}
+	
+	list *obj = *l;
+	int position = 1;
+	int number = 0;
+	
+	while(obj->is_element_exist(position))
+	{
+		number = obj->get_element(position);
+		fprintf(fp,"%d ",number);
+		position++;
+	}
+	fclose(fp);
+	
+	if(position == 1)
+		printf("No Elements\n");
 }
 
 /*
