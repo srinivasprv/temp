@@ -5,13 +5,13 @@
 void remove_duplicates(list **myobj);
 
 //write output prototype
-void write_output(list **l, char *filename);
+void write_output(list *l, char *filename);
 
 
 int main(int argc,char *argv[])
 {
 	FILE *fp=NULL;
-	int temp,r;
+	int temp,r,input;
 	int no_of_elements;
 	list *myobj;
 
@@ -24,10 +24,10 @@ int main(int argc,char *argv[])
 
 	//data structure to use
 	printf("please enter for data type 1(array) 2(linkedlist):");
-	scanf("%d",&temp);
+	scanf("%d",&input);
 
 	//check type
-	if((temp!=1)&&(temp!=2))
+	if((input!=1)&&(input!=2))
 	{
 		printf("wrong option entered\n Exiting..\n");
 		exit(0);
@@ -48,12 +48,12 @@ int main(int argc,char *argv[])
 	}
 	
 	//create object according to option entered above
-	if(temp == 1)
+	if(input == 1)
 	{
 		myobj = new myarray();
 		myobj->init(no_of_elements);
 	}
-	else if(temp == 2)
+	else if(input == 2)
 	{
 		myobj = new ll();
 		myobj->init(no_of_elements);
@@ -63,7 +63,7 @@ int main(int argc,char *argv[])
 	fseek(fp,0L,SEEK_SET);
 	for(int i=0;i<no_of_elements;i++)
 	{
-		fscanf(fp,"%d ",&temp);
+		fscanf(fp,"%d",&temp);
 		myobj->insert_element(temp);
 	}
 	fclose(fp);
@@ -73,7 +73,7 @@ int main(int argc,char *argv[])
 	//myobj->display_elements();
 	
 	//write output to the file
-	write_output(&myobj, argv[2]);
+	write_output(myobj, argv[2]);
 	
 	return 0;
 }
@@ -116,9 +116,13 @@ void remove_duplicates(list **pres)
 		printf("Sorry there are no elements\n");
 }
 
-void write_output(list **l, char *filename)
+void write_output(list *l, char *filename)
 {
 	FILE *fp;
+	list *obj = l;
+	int position = 1;
+	int number = 0;//temp int to write to file
+
 	//open file in write mode
 	if((fp= fopen(filename,"w"))==NULL)
 	{
@@ -126,9 +130,6 @@ void write_output(list **l, char *filename)
 		exit(0);
 	}
 	
-	list *obj = *l;
-	int position = 1;
-	int number = 0;//temp int to write to file
 	
 	//iterate over list
 	while(obj->is_element_exist(position))
@@ -138,11 +139,11 @@ void write_output(list **l, char *filename)
 		fprintf(fp,"%d ",number);
 		position++;
 	}
-	fclose(fp);
 	
 	//if no elements
 	if(position == 1)
-		printf("No Elements\n");
+		fprintf(fp,"No Elements Exist in input\n");
+	fclose(fp);
 }
 
 /*
