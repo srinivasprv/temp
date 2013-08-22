@@ -2,7 +2,7 @@
 #include "list.h"
 
 //initialize myarray object
-void myarray::init(int n)
+myarray::myarray(int n)
 {
 	no_of_elements = n;
 	

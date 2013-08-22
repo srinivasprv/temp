@@ -1,7 +1,7 @@
 #include <iostream>
 #include "list.h"
 
-void ll::init(int n)
+ll::ll()
 {
 	//initialise empty linked list
 	head=NULL;

@@ -50,13 +50,11 @@ int main(int argc,char *argv[])
 	//create object according to option entered above
 	if(input == 1)
 	{
-		myobj = new myarray();
-		myobj->init(no_of_elements);
+		myobj = new myarray(no_of_elements);
 	}
 	else if(input == 2)
 	{
 		myobj = new ll();
-		myobj->init(no_of_elements);
 	}
 	
 	//read and insert numbers into list
