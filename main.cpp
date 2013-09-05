@@ -87,6 +87,7 @@ void remove_duplicates(list **pres)
 	myobj = *pres;
 
 	ref_pos = 1;
+	scan_pos = 0;
 	while(myobj->is_element_exist(ref_pos))
 	{
 		//read the reference number
